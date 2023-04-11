@@ -1,0 +1,24 @@
+<%- include('components/header.ejs') -%>
+<div class="box" id="heading">
+    <h1><%= listTitle %></h1>
+</div>
+<div class="box">
+    <% items.forEach((item) => { %>
+        <form action="/delete" method="post">
+            <div class="item">
+                <div class="flex-group">
+                    <input type="checkbox" name="checkbox">
+                    <p> <%= item.name %> </p>
+                </div>
+                <button class="delete" type="submit" name="delete" value=<%= item._id %>>-</button>
+            </div>
+            <input type="hidden" name="listName" value=<%= listTitle %>>
+        </form>
+    <% }); %>
+
+    <form action="/" method="post" class="item">
+        <input type="text" name="newItem" placeholder="New task" autocomplete="off">
+        <button class="add" type="submit" name="list" value=<%= listTitle %>>+</button>
+    </form>
+</div>
+<%- include('components/footer.ejs') -%>
