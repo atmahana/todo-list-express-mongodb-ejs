@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
-const date = require(__dirname + "/date.js");
 const app = express();
-const port = 3000;
+require("dotenv").config();
+const PORT = process.env.PORT;
+const MONGODB_URL = process.env.MONGODB_URL;
 
-let items = [];
 let workItems = [];
 
 app.set("view engine", "ejs");
@@ -15,7 +15,7 @@ app.use(express.static("public"));
 main().catch(err=>console.log(err));
 
 async function main(){
-  await mongoose.connect('mongodb+srv://admin:gYV6tUqgMmHQCU33@cluster0.admal1l.mongodb.net/todolistDB');
+  await mongoose.connect(MONGODB_URL);
 }
 
 const itemSchema = new mongoose.Schema({
@@ -138,6 +138,6 @@ app.post("/work", (req, res) => {
   res.redirect("/work");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
